@@ -54,6 +54,18 @@ jobs:
         with:
           dockerfile: .devcontainer/Dockerfile.ubuntu
 
+  run-lint-alpine:
+    name: Hadolint Action .alpine
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Hadolint
+        uses: hadolint/hadolint-action@v2.1.0
+        with:
+          dockerfile: .devcontainer/Dockerfile.alpine
+
   trivy-scan:
     name: Trivy
     runs-on: ubuntu-latest
