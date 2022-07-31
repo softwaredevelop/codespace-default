@@ -45,13 +45,10 @@ if [ "${PACKAGES_ALREADY_INSTALLED}" != "true" ]; then
         sudo \
         wget \
         xz-utils"
-
   apt_get_update_if_needed
-
   if [[ -n $(apt-cache --names-only search ^libssl3$) ]]; then
     package_list="${package_list} libssl3"
   fi
-
   libssl_package=$(dpkg-query -f '${db:Status-Abbrev}\t${binary:Package}\n' -W 'libssl1*' 2>&1 || echo '')
   libssl_package_inst=$(echo "$libssl_package" | grep -o 'libssl1\(\.[0-9]\)*' | uniq | sort | wc -l)
   if [ "$libssl_package_inst" -eq 0 ]; then
@@ -63,9 +60,7 @@ if [ "${PACKAGES_ALREADY_INSTALLED}" != "true" ]; then
       package_list="${package_list} libssl1.0.0"
     fi
   fi
-
   apt-get install --no-install-recommends --assume-yes ${package_list}
-
   PACKAGES_ALREADY_INSTALLED="true"
 fi
 
