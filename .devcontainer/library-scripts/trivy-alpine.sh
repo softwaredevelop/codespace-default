@@ -33,7 +33,9 @@ if [ -f "${MARKER_FILE}" ]; then
 fi
 
 if [ "${TRIVY_ALREADY_INSTALLED}" != "true" ]; then
-  check_packages curl ca-certificates
+  check_packages \
+    ca-certificates \
+    curl
   trivy_inst
   TRIVY_ALREADY_INSTALLED="true"
 fi
