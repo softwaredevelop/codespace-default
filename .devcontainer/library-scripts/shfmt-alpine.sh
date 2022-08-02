@@ -48,7 +48,9 @@ if [ -f "${MARKER_FILE}" ]; then
 fi
 
 if [ "${SHFMT_ALREADY_INSTALLED}" != "true" ]; then
-  check_packages curl ca-certificates
+  check_packages \
+    ca-certificates \
+    curl
   shfmt_inst
   SHFMT_ALREADY_INSTALLED="true"
 fi
