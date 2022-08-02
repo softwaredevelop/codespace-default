@@ -53,11 +53,17 @@ if [ -f "${MARKER_FILE}" ]; then
 fi
 
 if [ "${TRIVY_ALREADY_INSTALLED}" != "true" ] && [ "${CONTAINER_OS}" = "debian" ]; then
-  check_packages wget apt-transport-https gnupg lsb-release
+  check_packages \
+    apt-transport-https \
+    gnupg \
+    lsb-release \
+    wget
   trivy_inst
   TRIVY_ALREADY_INSTALLED="true"
 elif [ "${TRIVY_ALREADY_INSTALLED}" != "true" ] && [ "${CONTAINER_OS}" = "alpine" ]; then
-  check_packages curl ca-certificates
+  check_packages \
+    ca-certificates \
+    curl
   trivy_inst
   TRIVY_ALREADY_INSTALLED="true"
 fi
