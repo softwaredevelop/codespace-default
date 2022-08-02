@@ -62,7 +62,9 @@ if [ -f "${MARKER_FILE}" ]; then
 fi
 
 if [ "${EDITORCONFIG_ALREADY_INSTALLED}" != "true" ]; then
-  check_packages curl ca-certificates
+  check_packages \
+    ca-certificates \
+    curl
   editorconfig_inst
   EDITORCONFIG_ALREADY_INSTALLED="true"
 fi
