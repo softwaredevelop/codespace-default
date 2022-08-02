@@ -44,7 +44,11 @@ fi
 export DEBIAN_FRONTEND=noninteractive
 
 if [ "${TRIVY_ALREADY_INSTALLED}" != "true" ]; then
-  check_packages wget apt-transport-https gnupg lsb-release
+  check_packages \
+    apt-transport-https \
+    gnupg \
+    lsb-release \
+    wget
   trivy_inst
 
   TRIVY_ALREADY_INSTALLED="true"
