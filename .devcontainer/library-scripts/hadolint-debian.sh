@@ -49,7 +49,9 @@ fi
 export DEBIAN_FRONTEND=noninteractive
 
 if [ "${HADOLINT_ALREADY_INSTALLED}" != "true" ]; then
-  check_packages curl ca-certificates
+  check_packages \
+    ca-certificates \
+    curl
   hadolint_inst
 
   HADOLINT_ALREADY_INSTALLED="true"
