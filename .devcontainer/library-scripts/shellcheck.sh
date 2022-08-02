@@ -60,7 +60,9 @@ fi
 
 if [ "${SHELLCHECK_ALREADY_INSTALLED}" != "true" ]; then
   if [ "${CONTAINER_OS}" = "debian" ]; then
-    check_packages wget xz-utils
+    check_packages \
+      wget \
+      xz-utils
   fi
   shellcheck_inst
   SHELLCHECK_ALREADY_INSTALLED="true"
