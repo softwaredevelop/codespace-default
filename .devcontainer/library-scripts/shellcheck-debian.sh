@@ -55,7 +55,9 @@ fi
 export DEBIAN_FRONTEND=noninteractive
 
 if [ "${SHELLCHECK_ALREADY_INSTALLED}" != "true" ]; then
-  check_packages wget xz-utils
+  check_packages \
+    wget \
+    xz-utils
   shellcheck_inst
 
   SHELLCHECK_ALREADY_INSTALLED="true"
