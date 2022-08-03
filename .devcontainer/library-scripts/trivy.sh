@@ -35,7 +35,7 @@ function check_packages() {
 
 function trivy_inst() {
   if [ "${CONTAINER_OS}" = "debian" ]; then
-    wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+    wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add - >/dev/null 2>&1
     echo deb https://aquasecurity.github.io/trivy-repo/deb "$(lsb_release -sc)" main | sudo tee -a /etc/apt/sources.list.d/trivy.list
     apt-get update
     apt-get install --no-install-recommends --assume-yes \
