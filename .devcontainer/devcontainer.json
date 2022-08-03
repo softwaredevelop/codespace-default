@@ -44,5 +44,6 @@
 		// "--name=codespace-default",
 		// "--userns=keep-id",
 	],
-	"containerUser": "codespace"
+	"containerUser": "codespace",
+	"postCreateCommand": "bash test/test.sh"
 }
