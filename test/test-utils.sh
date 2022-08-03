@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+USERNAME=${1:-codespace}
 FAILED_COUNT=0
 
 if [ -z $HOME ]; then
@@ -34,4 +35,8 @@ function reportResults() {
     printf "\n%s Failed tests: %s\n" "${boom}" "${FAILED_COUNT}"
     exit 1
   fi
+}
+
+function non_root_user() {
+  id ${USERNAME}
 }
