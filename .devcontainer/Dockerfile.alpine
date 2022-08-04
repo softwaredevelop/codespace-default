@@ -1,7 +1,7 @@
 ARG VARIANT=latest
 FROM docker.io/library/alpine:$VARIANT
 
-ARG USERNAME=vscode
+ARG USERNAME=codespace
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
