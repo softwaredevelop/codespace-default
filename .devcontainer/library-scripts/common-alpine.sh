@@ -30,6 +30,7 @@ if [ "${PACKAGES_ALREADY_INSTALLED}" != "true" ]; then
         curl \
         dpkg \
         git \
+        libc6-compat \
         shadow \
         sudo"
   apk update
