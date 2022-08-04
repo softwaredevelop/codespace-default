@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 USERNAME=${1:-codespace}
+ID_OS=$(grep '^ID=' </etc/os-release | cut -d '=' -f2)
 FAILED_COUNT=0
 
 if [ -z $HOME ]; then
@@ -39,4 +40,29 @@ function reportResults() {
 
 function non_root_user() {
   id ${USERNAME}
+}
+
+function checkOSPackages() {
+  LABEL=$1
+  shift
+  echo -e "\n🧪 Testing: ${LABEL}"
+  if [ "${ID_OS}" = "alpine" ]; then
+    if apk info --installed "$@"; then
+      echo "✅ Passed: ${LABEL}"
+      return 0
+    else
+      echoStderr "❌ Failed: ${LABEL}"
+      FAILED_COUNT=$((FAILED_COUNT + 1))
+      return 1
+    fi
+  elif [ "${ID_OS}" = "ubuntu" ]; then
+    if dpkg-query --show -f='${Package}: ${Version}\n' "$@"; then
+      echo "✅ Passed: ${LABEL}"
+      return 0
+    else
+      echoStderr "❌ Failed: ${LABEL}"
+      FAILED_COUNT=$((FAILED_COUNT + 1))
+      return 1
+    fi
+  fi
 }
