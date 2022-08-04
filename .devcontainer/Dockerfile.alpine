@@ -9,7 +9,7 @@ COPY library-scripts/* /tmp/scripts/
 
 RUN \
     apk update; \
-    apk add --no-cache \
+    apk add --no-cache --latest \
     bash; \
     bash /tmp/scripts/common-alpine.sh "true"; \
     bash /tmp/scripts/setup-user-alpine.sh "${USERNAME}" "${USER_UID}" "${USER_GID}"; \
