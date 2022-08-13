@@ -19,4 +19,4 @@ RUN \
     bash /tmp/scripts/trivy.sh "0.30.4" "debian"; \
     apt-get autoremove; \
     apt-get clean; \
-    rm -rf /var/lib/apt/lists/* /tmp/library-scripts
+    rm -rf /var/lib/apt/lists/* /tmp/scripts
