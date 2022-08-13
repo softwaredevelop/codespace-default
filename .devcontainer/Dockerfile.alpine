@@ -18,4 +18,4 @@ RUN \
     bash /tmp/scripts/shellcheck-alpine.sh "0.8.0"; \
     bash /tmp/scripts/editorconfig-alpine.sh "2.5.0"; \
     bash /tmp/scripts/trivy-alpine.sh; \
-    rm -rf /var/cache/apk/* /tmp/library-scripts
+    rm -rf /var/cache/apk/* /tmp/scripts
