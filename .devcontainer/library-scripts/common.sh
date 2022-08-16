@@ -32,9 +32,8 @@ if [ -f "${MARKER_FILE}" ]; then
   source "${MARKER_FILE}"
 fi
 
-export DEBIAN_FRONTEND=noninteractive
-
 if [ "${PACKAGES_ALREADY_INSTALLED}" != "true" ] && [ "${CONTAINER_OS}" = "debian" ]; then
+  export DEBIAN_FRONTEND=noninteractive
   package_list="apt-utils \
         apt-transport-https \
         ca-certificates \
