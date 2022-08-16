@@ -13,7 +13,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 function check_packages() {
-  if ! dpkg --status "$@" >/dev/null 2>&1; then
+  if ! apk info --installed "$@" >/dev/null 2>&1; then
     apk update
     apk add --no-cache --latest "$@"
   fi
