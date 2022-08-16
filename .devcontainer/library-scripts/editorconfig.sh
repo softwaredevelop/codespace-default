@@ -22,11 +22,13 @@ function apt_get_update_if_needed() {
 }
 
 function check_packages() {
-  if ! dpkg --status "$@" >/dev/null 2>&1; then
-    if [ "${CONTAINER_OS}" = "debian" ]; then
+  if [ "${CONTAINER_OS}" = "debian" ]; then
+    if ! dpkg --status "$@" >/dev/null 2>&1; then
       apt_get_update_if_needed
       apt-get install --no-install-recommends --assume-yes "$@"
-    elif [ "${CONTAINER_OS}" = "alpine" ]; then
+    fi
+  elif [ "${CONTAINER_OS}" = "alpine" ]; then
+    if ! apk info --installed "$@" >/dev/null 2>&1; then
       apk update
       apk add --no-cache --latest "$@"
     fi
