@@ -4,7 +4,7 @@ SCRIPT_FOLDER_NAME=$(dirname $0)
 cd ${SCRIPT_FOLDER_NAME} || exit
 
 # shellcheck source=/dev/null
-source test-utils.sh codespace
+source test-utils.sh
 
 if [ "${ID_OS}" = "ubuntu" ]; then
   package_list_debian="apt-utils \
