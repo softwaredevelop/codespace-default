@@ -2,7 +2,7 @@
 
 set -e
 
-SHELLCHECK_VERSION=${1:-"0.8.0"}
+SHELLCHECK_VERSION=${1:-"0.9.0"}
 CONTAINER_OS=${2:-"alpine"}
 SCRIPT=("${BASH_SOURCE[@]}")
 SCRIPT_PATH="${SCRIPT##*/}"

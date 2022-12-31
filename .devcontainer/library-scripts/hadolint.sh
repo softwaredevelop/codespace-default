@@ -2,7 +2,7 @@
 
 set -e
 
-HADOLINT_VERSION=${1:-"2.10.0"}
+HADOLINT_VERSION=${1:-"2.12.0"}
 CONTAINER_OS=${2:-"alpine"}
 SCRIPT=("${BASH_SOURCE[@]}")
 SCRIPT_PATH="${SCRIPT##*/}"
