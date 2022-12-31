@@ -35,11 +35,11 @@ function editorconfig_inst() {
     ;;
   esac
   curl -O -L -C - https://github.com/editorconfig-checker/editorconfig-checker/releases/download/"$EDITORCONFIG_VERSION"/ec-$OS-$ARCH.$EXT &&
-    tar xzf ec-$OS-$ARCH.$EXT --directory=/usr/local/bin/ --strip-components=1 &&
-    mv /usr/local/bin/ec-linux-amd64 /usr/local/bin/ec &&
-    rm ec-$OS-$ARCH.$EXT &&
-    chown root /usr/local/bin/ec &&
-    chgrp root /usr/local/bin/ec
+    tar xzf ec-$OS-$ARCH.$EXT --directory=/usr/local/bin/ --strip-components=1
+  mv /usr/local/bin/ec-linux-amd64 /usr/local/bin/ec
+  rm ec-$OS-$ARCH.$EXT
+  chown root /usr/local/bin/ec
+  chgrp root /usr/local/bin/ec
 }
 
 if [ -f "${MARKER_FILE}" ]; then
