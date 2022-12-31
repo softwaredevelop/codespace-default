@@ -28,9 +28,9 @@ function hadolint_inst() {
     ;;
   esac
   ARCH=$(uname -m)
-  curl -O -L -C - https://github.com/hadolint/hadolint/releases/download/v"$HADOLINT_VERSION"/hadolint-$OS-"$ARCH" &&
-    mv hadolint-$OS-"$ARCH" /usr/local/bin/hadolint &&
-    chmod +x /usr/local/bin/hadolint
+  curl -O -L -C - https://github.com/hadolint/hadolint/releases/download/v"$HADOLINT_VERSION"/hadolint-$OS-"$ARCH"
+  mv hadolint-$OS-"$ARCH" /usr/local/bin/hadolint
+  chmod +x /usr/local/bin/hadolint
 }
 
 if [ -f "${MARKER_FILE}" ]; then
