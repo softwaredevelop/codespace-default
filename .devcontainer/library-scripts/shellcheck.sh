@@ -48,11 +48,11 @@ function shellcheck_inst() {
     ARCH=x86_64
     ;;
   esac
-  wget -c https://github.com/koalaman/shellcheck/releases/download/v"$SHELLCHECK_VERSION"/shellcheck-v"$SHELLCHECK_VERSION".$OS.$ARCH.$EXT &&
-    tar -xf shellcheck-v"$SHELLCHECK_VERSION".$OS.$ARCH.$EXT --directory=/usr/local/bin/ --strip-components=1 --exclude=*.txt &&
-    rm shellcheck-v"$SHELLCHECK_VERSION".$OS.$ARCH.$EXT &&
-    chown root /usr/local/bin/shellcheck &&
-    chgrp root /usr/local/bin/shellcheck
+  wget -c https://github.com/koalaman/shellcheck/releases/download/v"$SHELLCHECK_VERSION"/shellcheck-v"$SHELLCHECK_VERSION".$OS.$ARCH.$EXT
+  tar -xf shellcheck-v"$SHELLCHECK_VERSION".$OS.$ARCH.$EXT --directory=/usr/local/bin/ --strip-components=1 --exclude=*.txt
+  rm shellcheck-v"$SHELLCHECK_VERSION".$OS.$ARCH.$EXT
+  chown root /usr/local/bin/shellcheck
+  chgrp root /usr/local/bin/shellcheck
 }
 
 if [ -f "${MARKER_FILE}" ]; then
