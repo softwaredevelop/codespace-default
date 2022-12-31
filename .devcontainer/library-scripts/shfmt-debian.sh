@@ -39,11 +39,11 @@ function shfmt_inst() {
     ARCH=amd64
     ;;
   esac
-  curl -O -L -C - https://github.com/mvdan/sh/releases/download/v$SHFMT_VERSION/shfmt_v"$SHFMT_VERSION"_"$OS"_"$ARCH" &&
-    mv shfmt_v"$SHFMT_VERSION"_"$OS"_"$ARCH" /usr/local/bin/shfmt &&
-    chmod +x /usr/local/bin/shfmt &&
-    chown root /usr/local/bin/shfmt &&
-    chgrp root /usr/local/bin/shfmt
+  curl -O -L -C - https://github.com/mvdan/sh/releases/download/v$SHFMT_VERSION/shfmt_v"$SHFMT_VERSION"_"$OS"_"$ARCH"
+  mv shfmt_v"$SHFMT_VERSION"_"$OS"_"$ARCH" /usr/local/bin/shfmt
+  chmod +x /usr/local/bin/shfmt
+  chown root /usr/local/bin/shfmt
+  chgrp root /usr/local/bin/shfmt
 }
 
 if [ -f "${MARKER_FILE}" ]; then
