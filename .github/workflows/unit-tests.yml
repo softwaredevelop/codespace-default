@@ -1,0 +1,49 @@
+---
+name: unit-tests
+
+run-name: Unit tests
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "cc/**/*_test.go"
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  skip-duplicate-actions:
+    name: Skip Duplicate Actions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: fkirc/skip-duplicate-actions@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          cancel_others: true
+          concurrent_skipping: never
+
+  unit_tests_in_cc:
+    name: Unit tests in cc
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'pull_request' || endsWith(github.event.head_commit.modified, '_test.go') }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Go latest
+        uses: actions/setup-go@v5
+        with:
+          go-version: stable
+
+      - name: Download dependencies
+        run: go mod download
+        working-directory: cc
+
+      - name: Run unit tests on code quality functions
+        run: go test -v ./...
+        working-directory: cc
