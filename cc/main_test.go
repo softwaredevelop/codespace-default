@@ -215,6 +215,13 @@ func TestCodeQuality(t *testing.T) {
 				"-verbose",
 				"unit-tests.yml",
 			}).
+			WithExec([]string{"/actionlint",
+				"-debug",
+				"-pyflakes",
+				"-shellcheck",
+				"-verbose",
+				"mirror.yml",
+			}).
 			Stdout(ctx)
 		require.NoError(t, err)
 	})
