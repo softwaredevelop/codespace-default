@@ -41,50 +41,18 @@ func TestMain(m *testing.M) {
 func TestCodeQualityFunctions(t *testing.T) {
 	t.Parallel()
 
-	t.Run("Test_gofumpt_function", func(t *testing.T) {
+	t.Run("Test_shellcheck_function", func(t *testing.T) {
 		t.Parallel()
-		c = c.Pipeline("test_gofumpt_function")
+		c = c.Pipeline("test_shellcheck_function")
 		require.NotNil(t, c)
+
+		dir, err := os.Getwd()
+		require.NoError(t, err)
+		require.NotEmpty(t, dir)
+		require.IsType(t, "", dir)
 
 		mountedDir := "/mountedtmp"
-		err := format.Gofumpt(c, id, mountedDir)
-		require.NoError(t, err)
-	})
-	t.Run("Test_goimports_function", func(t *testing.T) {
-		t.Parallel()
-		c = c.Pipeline("test_goimports_function")
-		require.NotNil(t, c)
-
-		mountedDir := "/mountedtmp"
-		err := format.GoImports(c, id, mountedDir)
-		require.NoError(t, err)
-	})
-	t.Run("Test_yamllint_function", func(t *testing.T) {
-		t.Parallel()
-		c = c.Pipeline("test_yamllint_function")
-		require.NotNil(t, c)
-
-		dir, _ := os.Getwd()
-		p := filepath.Join(dir, "..")
-		err := linting.Yamllint(p, c)
-		require.NoError(t, err)
-	})
-	t.Run("Test_revive_function", func(t *testing.T) {
-		t.Parallel()
-		c = c.Pipeline("test_revive_function")
-		require.NotNil(t, c)
-
-		mountedDir := "/mountedtmp"
-		err := linting.Revive(c, id, mountedDir)
-		require.NoError(t, err)
-	})
-	t.Run("Test_editorconfig_checker_function", func(t *testing.T) {
-		t.Parallel()
-		c = c.Pipeline("test_editorconfig_checker_function")
-		require.NotNil(t, c)
-
-		mountedDir := "/mountedtmp"
-		err := linting.EditorconfigChecker(c, id, mountedDir)
+		err = linting.Sh(dir, c, mountedDir)
 		require.NoError(t, err)
 	})
 	t.Run("Test_actionlint_function", func(t *testing.T) {
@@ -99,6 +67,52 @@ func TestCodeQualityFunctions(t *testing.T) {
 
 		mountedDir := "/mountedtmp"
 		err = linting.Actionlint(dir, c, id, mountedDir)
+		require.NoError(t, err)
+	})
+	t.Run("Test_editorconfig_checker_function", func(t *testing.T) {
+		t.Parallel()
+		c = c.Pipeline("test_editorconfig_checker_function")
+		require.NotNil(t, c)
+
+		mountedDir := "/mountedtmp"
+		err := linting.EditorconfigChecker(c, id, mountedDir)
+		require.NoError(t, err)
+	})
+	t.Run("Test_revive_function", func(t *testing.T) {
+		t.Parallel()
+		c = c.Pipeline("test_revive_function")
+		require.NotNil(t, c)
+
+		mountedDir := "/mountedtmp"
+		err := linting.Revive(c, id, mountedDir)
+		require.NoError(t, err)
+	})
+	t.Run("Test_yamllint_function", func(t *testing.T) {
+		t.Parallel()
+		c = c.Pipeline("test_yamllint_function")
+		require.NotNil(t, c)
+
+		dir, _ := os.Getwd()
+		p := filepath.Join(dir, "..")
+		err := linting.Yamllint(p, c)
+		require.NoError(t, err)
+	})
+	t.Run("Test_goimports_function", func(t *testing.T) {
+		t.Parallel()
+		c = c.Pipeline("test_goimports_function")
+		require.NotNil(t, c)
+
+		mountedDir := "/mountedtmp"
+		err := format.GoImports(c, id, mountedDir)
+		require.NoError(t, err)
+	})
+	t.Run("Test_gofumpt_function", func(t *testing.T) {
+		t.Parallel()
+		c = c.Pipeline("test_gofumpt_function")
+		require.NotNil(t, c)
+
+		mountedDir := "/mountedtmp"
+		err := format.Gofumpt(c, id, mountedDir)
 		require.NoError(t, err)
 	})
 }
