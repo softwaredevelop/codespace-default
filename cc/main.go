@@ -47,9 +47,18 @@ func main() {
 	}
 
 	var wg sync.WaitGroup
-	wg.Add(5)
+	wg.Add(6)
 
 	runtime.GOMAXPROCS(runtime.NumCPU())
+
+	go func() {
+		defer wg.Done()
+		f := c.Pipeline("shellcheck")
+		err = linting.Sh(dir, f, mountedDir)
+		if err != nil {
+			panic(err)
+		}
+	}()
 
 	go func() {
 		defer wg.Done()
