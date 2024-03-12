@@ -27,6 +27,7 @@ func main() {
 	c = c.Pipeline("code_quality")
 	id, err := c.
 		Container().
+		From("busybox:uclibc").
 		WithMountedTemp("/mountedtmp").
 		ID(ctx)
 	if err != nil {
@@ -47,9 +48,18 @@ func main() {
 	}
 
 	var wg sync.WaitGroup
-	wg.Add(6)
+	wg.Add(7)
 
 	runtime.GOMAXPROCS(runtime.NumCPU())
+
+	go func() {
+		defer wg.Done()
+		f := c.Pipeline("hadolint")
+		err = linting.Hadolint(dir, f, id, mountedDir)
+		if err != nil {
+			panic(err)
+		}
+	}()
 
 	go func() {
 		defer wg.Done()
