@@ -24,6 +24,7 @@ func TestMain(m *testing.M) {
 
 	id, _ = c.
 		Container().
+		From("busybox:uclibc").
 		WithMountedTemp("/mountedtmp").
 		ID(ctx)
 
