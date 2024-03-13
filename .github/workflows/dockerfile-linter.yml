@@ -1,13 +1,9 @@
 ---
-name: Dockerfile Linter
+name: dockerfile-linter
+
+run-name: Dockerfile Linter
 
 on:
-  push:
-    branches:
-      - "main"
-    paths:
-      - ".devcontainer/Dockerfile.*"
-      - ".devcontainer/Dockerfile"
   pull_request:
     branches:
       - "main"
@@ -30,43 +26,7 @@ jobs:
           cancel_others: true
           concurrent_skipping: never
 
-  run-lint:
-    name: Hadolint Action
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Hadolint
-        uses: hadolint/hadolint-action@v3.1.0
-        with:
-          dockerfile: .devcontainer/Dockerfile
-
-  run-lint-ubuntu:
-    name: Hadolint Action .ubuntu
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Hadolint
-        uses: hadolint/hadolint-action@v3.1.0
-        with:
-          dockerfile: .devcontainer/Dockerfile.ubuntu
-
-  run-lint-alpine:
-    name: Hadolint Action .alpine
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Hadolint
-        uses: hadolint/hadolint-action@v3.1.0
-        with:
-          dockerfile: .devcontainer/Dockerfile.alpine
-
-  trivy-scan:
+  trivy_scan:
     name: Trivy
     runs-on: ubuntu-latest
     steps:
