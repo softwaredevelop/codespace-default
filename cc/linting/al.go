@@ -19,27 +19,7 @@ func Actionlint(dir string, c *dagger.Client, id dagger.ContainerID, mountedDir 
 	}
 	_, err = al(c, id).
 		WithWorkdir(mountedDir).
-		WithExec([]string{"/actionlint",
-			"-debug",
-			"-pyflakes",
-			"-shellcheck",
-			"-verbose",
-			"code-quality.yml",
-		}).
-		WithExec([]string{"/actionlint",
-			"-debug",
-			"-pyflakes",
-			"-shellcheck",
-			"-verbose",
-			"unit-tests.yml",
-		}).
-		WithExec([]string{"/actionlint",
-			"-debug",
-			"-pyflakes",
-			"-shellcheck",
-			"-verbose",
-			"mirror.yml",
-		}).
+		WithExec([]string{"sh", "-c", "/actionlint $(find . -type f -name '*.yml')"}).
 		Stdout(ctx)
 	if err != nil {
 		return err
