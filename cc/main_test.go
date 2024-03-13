@@ -42,6 +42,20 @@ func TestMain(m *testing.M) {
 func TestCodeQualityFunctions(t *testing.T) {
 	t.Parallel()
 
+	// t.Run("Test_trivy_function", func(t *testing.T) {
+	// 	t.Parallel()
+	// 	c = c.Pipeline("test_trivy_function")
+	// 	require.NotNil(t, c)
+
+	// 	dir, err := os.Getwd()
+	// 	require.NoError(t, err)
+	// 	require.NotEmpty(t, dir)
+	// 	require.IsType(t, "", dir)
+
+	// 	mountedDir := "/mountedtmp"
+	// 	err = linting.Trivy(dir, c, id, mountedDir)
+	// 	require.NoError(t, err)
+	// })
 	t.Run("Test_hadolint_function", func(t *testing.T) {
 		t.Parallel()
 		c = c.Pipeline("test_hadolint_function")
