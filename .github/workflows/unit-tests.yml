@@ -9,6 +9,7 @@ on:
       - main
     paths:
       - "cc/**/*_test.go"
+      - "iac/**/*_test.go"
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
@@ -40,10 +41,32 @@ jobs:
         with:
           go-version: stable
 
-      - name: Download dependencies
+      - name: Download dependencies for cc
         run: go mod download
         working-directory: cc
 
-      - name: Run unit tests on code quality functions
+      - name: Run unit tests on code quality functions in cc
         run: go test -v ./...
         working-directory: cc
+
+  unit_tests_in_iac:
+    runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.head.repo.full_name, 'iac/**/*_test.go')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Go latest
+        uses: actions/setup-go@v5
+        with:
+          go-version: stable
+
+      - name: Download dependencies for iac/plm
+        run: go mod download
+        working-directory: iac/plm
+
+      - name: Run unit tests on code quality functions in iac/plm
+        run: go test -v .
+        working-directory: iac/plm
