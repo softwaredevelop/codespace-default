@@ -29,7 +29,6 @@ jobs:
   unit_tests_in_cc:
     name: Unit tests in cc
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request' || endsWith(github.event.head_commit.modified, '_test.go') }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -51,7 +50,6 @@ jobs:
 
   unit_tests_in_iac:
     runs-on: ubuntu-latest
-    if: contains(github.event.pull_request.head.repo.full_name, 'iac/**/*_test.go')
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
