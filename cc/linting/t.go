@@ -2,31 +2,38 @@
 package linting
 
 import (
-	"cc/util"
 	"context"
-	"path/filepath"
+	"fmt"
+	"strings"
 
 	"dagger.io/dagger"
 )
 
-func Trivy(dir string, c *dagger.Client, id dagger.ContainerID, mountedDir string) error {
+func Trivy(c *dagger.Client, id dagger.ContainerID) error {
 	ctx := context.Background()
-	p := filepath.Join(dir, "..")
-	id, err := util.MountedHostDirectory(c, id, p, mountedDir).
-		ID(ctx)
-	if err != nil {
-		return err
-	}
 
-	_, err = t(c, id).
-		WithNewFile(".trivyignore", dagger.ContainerWithNewFileOpts{
-			Contents: "AVD-DS-0002",
-		}).
-		WithExec([]string{"sh", "-c", "/trivy config --severity=MEDIUM,HIGH,CRITICAL --exit-code=1 $(find . -type f \\( -name Dockerfile -o -name Dockerfile.* \\))"}).
+	files, err := t(c, id).
+		WithExec([]string{"sh", "-c", "find . -type f \\( -name Dockerfile -o -name Dockerfile.* \\)"}).
 		Stdout(ctx)
 	if err != nil {
 		return err
 	}
+
+	for _, file := range strings.Split(files, "\n") {
+		if file == "" {
+			continue
+		}
+		_, err = t(c, id).
+			WithNewFile(".trivyignore", dagger.ContainerWithNewFileOpts{
+				Contents: "AVD-DS-0002",
+			}).
+			WithExec([]string{"sh", "-c", fmt.Sprintf("/trivy config --severity=MEDIUM,HIGH,CRITICAL --exit-code=1 %s", file)}).
+			Stdout(ctx)
+		if err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
