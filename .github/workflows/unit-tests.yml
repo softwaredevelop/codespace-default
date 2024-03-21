@@ -49,6 +49,7 @@ jobs:
         working-directory: cc
 
   unit_tests_in_iac:
+    name: Unit tests in iac
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
