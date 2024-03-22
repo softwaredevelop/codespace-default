@@ -48,9 +48,18 @@ func main() {
 	}
 
 	var wg sync.WaitGroup
-	wg.Add(7)
+	wg.Add(8)
 
 	runtime.GOMAXPROCS(runtime.NumCPU())
+
+	go func() {
+		defer wg.Done()
+		f := c.Pipeline("trivy")
+		err = linting.Trivy(f, id)
+		if err != nil {
+			panic(err)
+		}
+	}()
 
 	go func() {
 		defer wg.Done()
