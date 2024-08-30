@@ -25,7 +25,7 @@ jobs:
           cancel_others: true
           concurrent_skipping: never
 
-  revive:
+  shellcheck:
     name: Shellcheck
     runs-on: ubuntu-latest
     steps:
